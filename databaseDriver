@@ -1,0 +1,30 @@
+
+public class debugger {
+	public static void main(String [] args){
+		String[] testString = {"Tyler Bixler", "E01065576", "7349723586", "tbixler1@emich.edu", "Margie Slatter", "4193555953", "Mother"};
+		String testString2 = "TylerBixlerE010655767349723586tbixler1@emich.eduMargieSlatter4193555953Mother";
+		int[] testInt = {1, 2, 3, 4, 5};
+		boolean[] testBool = {true, true, false, false, true};
+		
+		seniorDatabase test = new seniorDatabase(System.getProperty("user.dir"));
+		test.writeDatabase("testFile", testString2, testInt, testBool);
+		Object[] testObj = test.readDatabase("testFile");
+		String hold = testObj.toString();
+		String testString1 = (String) testObj[0];
+		testInt = (int[]) testObj[1];
+		testBool = (boolean[]) testObj[2];
+		System.out.println(testString1);
+		for(int j=0;j<testInt.length;j++){
+			System.out.println(Integer.toString(testInt[j]));
+		}
+		for(int j=0;j<testBool.length;j++){
+			System.out.println(testBool[j]);
+		}
+	}
+}
+/*
+ *for first split in string, check to see if n char is letter and n+1 char is digit
+ *9 chars for EID, 10 chars for phone #
+ *check for .edu/com for end of email, to find phone # check for digit
+ *everything after that is relation 
+ */
