@@ -1,8 +1,7 @@
-
 public class debugger {
 	public static void main(String [] args){
 		String[] testString = {"Tyler Bixler", "E01065576", "7349723586", "tbixler1@emich.edu", "Margie Slatter", "4193555953", "Mother"};
-		String testString2 = "TylerBixlerE010655767349723586tbixler1@emich.eduMargieSlatter4193555953Mother";
+		String testString2 = "Tyler Bixler$&!E01065576$&!7349723586$&!tbixler1@emich.edu$&!Margie Slatter$&!4193555953$&!Mother$&!";
 		int[] testInt = {1, 2, 3, 4, 5};
 		boolean[] testBool = {true, true, false, false, true};
 		
@@ -13,7 +12,17 @@ public class debugger {
 		String testString1 = (String) testObj[0];
 		testInt = (int[]) testObj[1];
 		testBool = (boolean[]) testObj[2];
-		System.out.println(testString1);
+		//System.out.println(testString1);
+		int prev = 0;
+		for(int k=0;k<testString1.length();k++){
+			if(testString1.charAt(k)=='$' && testString1.charAt(k+1)=='&' && testString1.charAt(k+2)=='!'){
+				for(int i = prev; i<k;i++){
+					System.out.print(testString1.charAt(i));
+				}
+				System.out.println();
+				prev = k+3;
+			}
+		}
 		for(int j=0;j<testInt.length;j++){
 			System.out.println(Integer.toString(testInt[j]));
 		}
@@ -22,9 +31,3 @@ public class debugger {
 		}
 	}
 }
-/*
- *for first split in string, check to see if n char is letter and n+1 char is digit
- *9 chars for EID, 10 chars for phone #
- *check for .edu/com for end of email, to find phone # check for digit
- *everything after that is relation 
- */
