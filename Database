@@ -12,24 +12,7 @@ public class seniorDatabase {
 	String curPath;
 	String dir;
 	private int stringLength, intLength, boolLength;
-	//Current needs
-		//What information is being sent
-			//Strings - readChar
-				//Name - 32 bytes
-				//EID - 32 bytes
-				//Phone # - 32 bytes
-				//Email - 128 bytes
-				//Emergency Contact - 32 bytes
-				//Emergency Contact # - 32 bytes
-				//Relation - 32 bytes
-			//Ints - readInt
-				//Major
-				//Position
-				//Work study hours/min hours/max hours
-				//Array of availability
-			//Boolean - readBoolean
-	
-	
+
 	//constructor
 	public seniorDatabase(String filePath){
 		dir = filePath;
