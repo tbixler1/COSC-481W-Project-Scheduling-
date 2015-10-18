@@ -13,7 +13,7 @@ import java.nio.file.*;
 public class seniorDatabase {
 	String curPath;
 	String dir;
-	private int stringLength, intLength, boolLength;
+	private int stringLength, intLength = 172, boolLength = 23;
 
 	//constructor
 	public seniorDatabase(String filePath){
@@ -25,7 +25,7 @@ public class seniorDatabase {
 	
 	//Write
 	public void writeDatabase(String name, String stringData, int[] intData, boolean[] boolData){
-		curPath = dir + "\\" + name;
+		curPath = dir + "\\" + name + ".tut";
 		//stringLength = stringData.length;
 		intLength = intData.length;
 		boolLength = boolData.length;
@@ -56,7 +56,7 @@ public class seniorDatabase {
 		catch(IOException x){
 			throw new RuntimeException(x);
 		}
-		System.out.println("wrote it");
+		//System.out.println("wrote it");
 	}
 		//Requires
 			//Name of file

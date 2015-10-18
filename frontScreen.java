@@ -11,7 +11,6 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.showMessageDialog;
 
 import jxl.*;
@@ -75,6 +74,7 @@ public class frontScreen extends javax.swing.JFrame {
             }
         });
 
+        tutorProfileListBox.setMaximumRowCount(20);
         tutorProfileListBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "new" }));
         tutorProfileListBox.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -147,12 +147,12 @@ public class frontScreen extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tutorProfileListBox, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(tutorProfileListOpenButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(tutorProfileListNewButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(rulesModifyButton))
+                    .addComponent(rulesModifyButton)
+                    .addComponent(tutorProfileListBox, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -223,7 +223,7 @@ public class frontScreen extends javax.swing.JFrame {
         {
             //System.out.println("new tutor is selected");
             //create new tutor and display their editting window
-            newTutor = new TutorInfo(true, database, pathTut);
+            newTutor = new TutorInfo(database, pathTut);
             newTutor.setVisible(true);
             //save tutor to global variable
             tutorList.add(newTutor);
@@ -315,15 +315,20 @@ public class frontScreen extends javax.swing.JFrame {
         int choice = fc.showSaveDialog(null);
         if(choice == JFileChooser.APPROVE_OPTION)
         {
-            //System.out.println("rdtfhvghbjn");
+            Scanner stdin = new Scanner(System.in);
             pathTut=fc.getSelectedFile().getAbsolutePath();
             int index = pathTut.lastIndexOf('\\');
             pathTut = pathTut.substring(0, index);
-            System.out.println(pathTut);
+            //System.out.println(pathTut);
             
             database = new seniorDatabase(pathTut);
+            tutorList.clear();
+            while(tutorProfileListBox.getItemCount() > 1)
+                tutorProfileListBox.removeItemAt(1);
+            //tutorProfileListBox.addItem("new");
+            
+            tutorProfileListBox.setVisible(true);
         }
-        tutorProfileListBox.setVisible(true);
     }//GEN-LAST:event_tutorProfileListNewButtonActionPerformed
 
     private void tutorProfileListBoxMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tutorProfileListBoxMouseClicked
@@ -344,6 +349,49 @@ public class frontScreen extends javax.swing.JFrame {
 
     private void tutorProfileListOpenButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tutorProfileListOpenButtonActionPerformed
         // TODO add your handling code here:
+        JFileChooser fc = new JFileChooser();
+        int choice = fc.showOpenDialog(null);
+        if(choice == JFileChooser.APPROVE_OPTION)
+        {
+            //System.out.println("rdtfhvghbjn");
+            pathTut=fc.getSelectedFile().getAbsolutePath();
+            int index = pathTut.lastIndexOf('\\');
+            pathTut = pathTut.substring(0, index);
+            //System.out.println(pathTut);
+            
+            database = new seniorDatabase(pathTut);
+            
+            tutorList.clear();
+            while(tutorProfileListBox.getItemCount() > 1)
+                tutorProfileListBox.removeItemAt(1);
+            
+            tutorProfileListBox.setVisible(true);
+        }
+        
+        
+        File[] tutorFiles = new File(pathTut).listFiles((File dir, String name1) -> name1.endsWith(".tut"));
+        //System.out.println(tutorFiles.length);
+        PleaseWait wait = new PleaseWait();
+        wait.setVisible(true);
+        for(int i=0; i<tutorFiles.length; i++)
+        {
+            Object[] objArray = database.readDatabase(tutorFiles[i].getName());
+            newTutor = new TutorInfo(database, pathTut, objArray);
+            tutorList.add(newTutor);
+            //add the last tutor to the drop down list
+            tutorProfileListBox.addItem(newTutor);
+            
+        }
+        
+//        //create new tutor and display their editting window
+//        newTutor = new TutorInfo(database, pathTut);
+//        newTutor.setVisible(true);
+//        //save tutor to global variable
+//        tutorList.add(newTutor);
+        wait.setVisible(false);
+        
+        
+        tutorProfileListBox.setVisible(true);
     }//GEN-LAST:event_tutorProfileListOpenButtonActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

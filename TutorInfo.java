@@ -7,6 +7,9 @@ package senior.project;
 
 import java.awt.*;
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -19,15 +22,95 @@ public class TutorInfo extends javax.swing.JFrame {
     /**
      * Creates new form TutorInfo
      */
-    public TutorInfo(boolean isNew, seniorDatabase sd, String filePath) {
+    public TutorInfo(seniorDatabase sd, String filePath) {
         initComponents();
         
-        if(isNew)
-        {
-            ;
-        }
         path = filePath;
         database = sd;
+    }
+    
+    public TutorInfo(seniorDatabase sd, String filePath, Object[] initArray) {
+        initComponents();
+        
+        path = filePath;
+        database = sd;
+        
+        String strings = (String) initArray[0];
+        int[] ints = (int[]) initArray[1];
+        boolean[] bools = (boolean[]) initArray[2];
+        
+        ArrayList<String> stringList = new ArrayList<String>();
+        for(String s : strings.split(Pattern.quote("$&!")))
+            stringList.add(s);
+        
+        name = stringList.remove(0);
+        EID = stringList.remove(0);
+        phone = stringList.remove(0);
+        email = stringList.remove(0);
+        emergencyContactName = stringList.remove(0);
+        emergencyContactPhone = stringList.remove(0);
+        emergencyContactRelation = stringList.remove(0);
+        major = stringList.remove(0);
+        
+        jTextField1.setText(name);
+        jTextField2.setText(EID);
+        jTextField3.setText(phone);
+        jTextField4.setText(email);
+        jTextField5.setText(emergencyContactName);
+        jTextField6.setText(emergencyContactPhone);
+        jTextField7.setText(emergencyContactRelation);
+        jTextField8.setText(major);
+        
+        for(int i=0; i<ints.length-4; i++)
+            availability[i/24][i%24] = ints[i];
+        
+        position = ints[168];
+        minHours = ints[169];
+        maxHours = ints[170];
+        workStudyHours = ints[171];
+        
+        jComboBox1.setSelectedIndex(position);
+        jSpinner1.setValue(minHours);
+        jSpinner2.setValue(maxHours);
+        jSpinner3.setValue(workStudyHours);
+        
+        isLead = bools[0];
+        jCheckBox1.setSelected(isLead);
+        
+        for(int i=0; i<bools.length-1; i++)
+            classes[i] = bools[i+1];
+        
+        jCheckBox2.setSelected(classes[0]);
+        jCheckBox3.setSelected(classes[1]);
+        jCheckBox4.setSelected(classes[2]);
+        jCheckBox5.setSelected(classes[3]);
+        jCheckBox6.setSelected(classes[4]);
+        jCheckBox7.setSelected(classes[5]);
+        jCheckBox8.setSelected(classes[6]);
+        jCheckBox9.setSelected(classes[7]);
+        jCheckBox10.setSelected(classes[8]);
+        jCheckBox11.setSelected(classes[9]);
+        jCheckBox12.setSelected(classes[10]);
+        jCheckBox13.setSelected(classes[11]);
+        jCheckBox14.setSelected(classes[12]);
+        jCheckBox15.setSelected(classes[13]);
+        jCheckBox16.setSelected(classes[14]);
+        jCheckBox17.setSelected(classes[15]);
+        jCheckBox18.setSelected(classes[16]);
+        jCheckBox19.setSelected(classes[17]);
+        jCheckBox20.setSelected(classes[18]);
+        jCheckBox21.setSelected(classes[19]);
+        jCheckBox22.setSelected(classes[20]);
+        jCheckBox23.setSelected(classes[21]);
+        
+        /**
+         
+        boolean[] bools = new boolean[23];
+        bools[0] = isLead;
+        for(int i=1; i<23; i++)
+            bools[i] = classes[i-1];
+        }
+         */
     }
 
     /**
