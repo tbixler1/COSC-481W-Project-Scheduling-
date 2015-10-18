@@ -12,13 +12,22 @@ import java.io.*;
  *
  * @author Orc 9
  */
+
 public class TutorInfo extends javax.swing.JFrame {
 
+    private seniorDatabase database;
     /**
      * Creates new form TutorInfo
      */
-    public TutorInfo() {
+    public TutorInfo(boolean isNew, seniorDatabase sd, String filePath) {
         initComponents();
+        
+        if(isNew)
+        {
+            ;
+        }
+        path = filePath;
+        database = sd;
     }
 
     /**
@@ -1096,6 +1105,26 @@ public class TutorInfo extends javax.swing.JFrame {
         major = jTextField8.getText();
         
         isDone = true;
+        
+        String key = "$&!";
+        String strings = name+key+EID+key+phone+key+email+key+emergencyContactName+key+emergencyContactPhone+key+emergencyContactRelation+key+major;
+        
+        int[] ints = new int[172];
+        for(int i=0; i<7; i++)
+            for(int j=0; j<24; j++)
+                ints[i*24+j] = availability[i][j];
+        ints[168] = position;
+        ints[169] = minHours;
+        ints[170] = maxHours;
+        ints[171] = workStudyHours;
+        
+        boolean[] bools = new boolean[23];
+        bools[0] = isLead;
+        for(int i=1; i<23; i++)
+            bools[i] = classes[i-1];
+        
+        database.writeDatabase(name, strings, ints, bools);
+        
     }//GEN-LAST:event_formWindowClosed
 
     private void jCheckBox20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox20ActionPerformed
@@ -1201,7 +1230,7 @@ public class TutorInfo extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TutorInfo().setVisible(true);
+                //new TutorInfo().setVisible(true);
             }
         });
     }
@@ -1284,7 +1313,7 @@ public class TutorInfo extends javax.swing.JFrame {
     private MyJPanel drawingArea = new MyJPanel();
     private int[][] availability = new int[7][24];
     private String path;
-    private boolean[] classes = new boolean[21];
+    private boolean[] classes = new boolean[22];
     private boolean isLead = false;
     private int position = 0;
     private String name = "";

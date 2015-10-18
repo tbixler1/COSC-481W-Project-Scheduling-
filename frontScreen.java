@@ -11,7 +11,8 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
-
+import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.showMessageDialog;
 
 import jxl.*;
 import jxl.read.biff.BiffException;
@@ -222,7 +223,7 @@ public class frontScreen extends javax.swing.JFrame {
         {
             //System.out.println("new tutor is selected");
             //create new tutor and display their editting window
-            newTutor = new TutorInfo();
+            newTutor = new TutorInfo(true, database, pathTut);
             newTutor.setVisible(true);
             //save tutor to global variable
             tutorList.add(newTutor);
@@ -278,38 +279,50 @@ public class frontScreen extends javax.swing.JFrame {
         // TODO add your handling code here:
         //Open Schedule Button
         //ask for file name to save a new schedule to
-        JFileChooser fc = new JFileChooser();
-        int choice = fc.showOpenDialog(null);
-        if(choice == JFileChooser.APPROVE_OPTION)
+        do
         {
-            //System.out.println("rdtfhvghbjn");
-            //get file name
-            pathSch=fc.getSelectedFile().getAbsolutePath();
-           //change the label name to this file path location
-            jLabel2.setText(pathSch);
-            //create a schedule object and make it visible
-            //takes a few seconds to initialize 7*24 LabStats objects, so
-            //display a "Please Wait" window until the schedule is ready
-            PleaseWait waitMessage = new PleaseWait();
-            waitMessage.setVisible(true);
-            
-            new Schedule(false, pathSch).setVisible(true);
-            waitMessage.setVisible(false);
-        }
+            JFileChooser fc = new JFileChooser();
+            int choice = fc.showOpenDialog(null);
+            if(choice == JFileChooser.APPROVE_OPTION)
+            {
+                //System.out.println("rdtfhvghbjn");
+
+                //get file name
+                pathSch=fc.getSelectedFile().getAbsolutePath();
+
+                if(pathSch.endsWith(".sch"))
+                {
+                    //change the label name to this file path location
+                    jLabel2.setText(pathSch);
+                    //create a schedule object and make it visible
+                    //takes a few seconds to initialize 7*24 LabStats objects, so
+                    //display a "Please Wait" window until the schedule is ready
+                    PleaseWait waitMessage = new PleaseWait();
+                    waitMessage.setVisible(true);
+
+                    new Schedule(false, pathSch).setVisible(true);
+                    waitMessage.setVisible(false);
+                }
+                else
+                    showMessageDialog(null, "ERROR: Chosen file must have extention:  .sch\nPlease try again");
+            }
+        } while(!pathSch.endsWith(".sch"));
     }//GEN-LAST:event_scheduleInProgressOpenButtonActionPerformed
 
     private void tutorProfileListNewButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tutorProfileListNewButtonActionPerformed
         // TODO add your handling code here:
-//        JFileChooser fc = new JFileChooser();
-//        int choice = fc.showSaveDialog(null);
-//        if(choice == JFileChooser.APPROVE_OPTION)
-//        {
-//            System.out.println("rdtfhvghbjn");
-//            pathTut=fc.getSelectedFile().getAbsolutePath();
-//            System.out.println(pathSch);
-//            //new Schedule(false, pathSch).setVisible(true);
-//            //INSERT NEW DATABASE HERE!!!!!!!
-//        }
+        JFileChooser fc = new JFileChooser();
+        int choice = fc.showSaveDialog(null);
+        if(choice == JFileChooser.APPROVE_OPTION)
+        {
+            //System.out.println("rdtfhvghbjn");
+            pathTut=fc.getSelectedFile().getAbsolutePath();
+            int index = pathTut.lastIndexOf('\\');
+            pathTut = pathTut.substring(0, index);
+            System.out.println(pathTut);
+            
+            database = new seniorDatabase(pathTut);
+        }
         tutorProfileListBox.setVisible(true);
     }//GEN-LAST:event_tutorProfileListNewButtonActionPerformed
 
@@ -425,4 +438,5 @@ public class frontScreen extends javax.swing.JFrame {
     private String pathTut;
     private ArrayList<TutorInfo> tutorList = new ArrayList<TutorInfo>();
     private TutorInfo newTutor;
+    private seniorDatabase database;
 }
