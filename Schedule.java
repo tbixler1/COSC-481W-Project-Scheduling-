@@ -33,7 +33,7 @@ public class Schedule extends javax.swing.JFrame {
             //create a 2D array of new LabStats objects
             for(int i=0; i<7; i++)
                 for(int j=0; j<24; j++)
-                    labWindows[i][j] = new LabStats();
+                    labWindows[i][j] = new LabStats(i, j);
             //make a new file
             PrintWriter newFile = null;
             try {
@@ -63,7 +63,7 @@ public class Schedule extends javax.swing.JFrame {
             //initialize LabStats objects based on file
             for(int i=0; i<7; i++)
                 for(int j=0; j<24; j++)
-                    labWindows[i][j] = new LabStats(inputStream.nextInt(),inputStream.nextInt(),inputStream.nextInt(),inputStream.nextInt(),inputStream.nextInt(),inputStream.nextInt(),inputStream.nextInt(),inputStream.nextInt());
+                    labWindows[i][j] = new LabStats(inputStream.nextInt(),inputStream.nextInt(),inputStream.nextInt(),inputStream.nextInt(),inputStream.nextInt(),inputStream.nextInt(),inputStream.nextInt(),inputStream.nextInt(), i, j);
         }
     }
     //default constructor not used
@@ -147,10 +147,12 @@ public class Schedule extends javax.swing.JFrame {
         };
         jLabel19 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Lab Hours");
         setAlwaysOnTop(true);
-        setPreferredSize(new java.awt.Dimension(1000, 1020));
+        setPreferredSize(new java.awt.Dimension(895, 1020));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -279,6 +281,13 @@ public class Schedule extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabel1.setText("midnight");
 
+        jButton3.setText("?");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -315,7 +324,8 @@ public class Schedule extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel169, javax.swing.GroupLayout.DEFAULT_SIZE, 742, Short.MAX_VALUE))
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton3))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -359,7 +369,10 @@ public class Schedule extends javax.swing.JFrame {
                         .addGap(54, 54, 54)
                         .addComponent(jLabel19)
                         .addGap(51, 51, 51)
-                        .addComponent(jLabel1)))
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jButton3)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -424,6 +437,12 @@ public class Schedule extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_formWindowClosed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        String s = "You clicked the help box for \"Scheduling Lab Times\"";
+        new InfoBox(s).setVisible(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -462,6 +481,7 @@ public class Schedule extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
