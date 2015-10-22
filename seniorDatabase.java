@@ -13,7 +13,7 @@ import java.nio.file.*;
 public class seniorDatabase {
 	String curPath;
 	String dir;
-	private int stringLength, intLength = 172, boolLength = 30;
+	private int stringLength, intLength = 175, boolLength = 30;
 
 	//constructor
 	public seniorDatabase(String filePath){

@@ -458,6 +458,7 @@ public class frontScreen extends javax.swing.JFrame {
             wait.setVisible(true);
             for(int i=0; i<tutorFiles.length; i++)
             {
+                System.out.println(tutorFiles[i].getName());
                 Object[] objArray = database.readDatabase(tutorFiles[i].getName());
                 newTutor = new TutorInfo(database, pathTut, objArray, rules);
                 tutorList.add(newTutor);
