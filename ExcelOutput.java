@@ -10,10 +10,35 @@ import jxl.write.Label;
 import jxl.write.WritableCellFormat;
 import jxl.write.WritableFont;
 import jxl.write.WritableSheet;
+import java.util.Scanner;
 
 public class ExcelOutput {
     WritableSheet sheet;
+    Record record;
     int recordIndex;
+    
+    final int COL_SUN = 1;
+    final int COL_MON = 2;
+    final int COL_TUE = 3;
+    final int COL_WED = 4;
+    final int COL_THU = 5;
+    final int COL_FRI = 6;
+    final int COL_SAT = 7;
+    
+    final int ROW_0800 = 1;
+    final int ROW_0900 = 2;
+    final int ROW_1000 = 3;
+    final int ROW_1100 = 4;
+    final int ROW_1200 = 5;
+    final int ROW_1300 = 6;
+    final int ROW_1400 = 7;
+    final int ROW_1500 = 8;
+    final int ROW_1600 = 9;
+    final int ROW_1700 = 10;
+    final int ROW_1800 = 11;
+    final int ROW_1900 = 12;
+    final int ROW_2000 = 13;
+    
     
     public ExcelOutput(){
        initSheet(sheet, "DEFAULT");
@@ -100,12 +125,12 @@ public class ExcelOutput {
             }
             // i = cols, j = rows
             // fills out remaining cells
-            for(int i = 1; i <= 7; i++){
-                for(int j = 1; j <= 13; j++){
-                    s.addCell(new Label(i, j, "", new WritableCellFormat(
-                    new WritableFont(WritableFont.TIMES,12))));
-                }
-            }
+//            for(int i = 1; i <= 7; i++){
+//                for(int j = 1; j <= 13; j++){
+//                    s.addCell(new Label(i, j, "", new WritableCellFormat(
+//                    new WritableFont(WritableFont.TIMES,12))));
+//                }
+//            }
         }
         catch(Exception e){
             e.printStackTrace();
@@ -155,25 +180,13 @@ public class ExcelOutput {
         try{
             recordIndex++;
             for(int i = 0; i <= 7; i++){
-                switch(i){
-                    case 0: label = r.getName();
-                        break;
-                    case 1: label = r.getSunHrs();
-                        break;
-                    case 2: label = r.getMonHrs();
-                        break;
-                    case 3: label = r.getTueHrs();
-                        break;
-                    case 4: label = r.getWedHrs();
-                        break;
-                    case 5: label = r.getThuHrs();
-                        break;
-                    case 6: label = r.getFriHrs();
-                        break;
-                    case 7: label = r.getSatHrs();
-                        break;
-                    default: label = "ERROR";
-                        break;
+                if(i == 0)
+                    label = r.getName();
+                else{
+                    if(r.hasHrs(i))
+                        label = r.getHrs(i);
+                    else
+                        label = "NO HOURS";
                 }
                 sheet.addCell(new Label(i, recordIndex, label, new WritableCellFormat(
                     new WritableFont(WritableFont.TIMES,12))));
@@ -182,6 +195,71 @@ public class ExcelOutput {
         catch(Exception e){
             e.printStackTrace();
         }
+    }
+    
+    // add data to the master schedule
+    // data passed from Record class must use comma delimiter
+    public void addToMaster(Record r){
+        int hrs;
+        int row;
+        int col;
+        String label;
+        try{
+            recordIndex++;
+            Scanner scanner;
+            for(col = 1; col <= 7; col++){
+                scanner = new Scanner(r.getHrs(col));
+                scanner.useDelimiter(",");
+                while(scanner.hasNextInt()){
+                    hrs = scanner.nextInt();
+                    switch(hrs){
+                        case  800: row = ROW_0800;
+                            break;
+                        case  900: row = ROW_0900;
+                            break;
+                        case 1000: row = ROW_1000;
+                            break;
+                        case 1100: row = ROW_1100;
+                            break;
+                        case 1200: row = ROW_1200;
+                            break;
+                        case 1300: row = ROW_1300;
+                            break;
+                        case 1400: row = ROW_1400;
+                            break;
+                        case 1500: row = ROW_1500;
+                            break;
+                        case 1600: row = ROW_1600;
+                            break;
+                        case 1700: row = ROW_1700;
+                            break;
+                        case 1800: row = ROW_1800;
+                            break;
+                        case 1900: row = ROW_1900;
+                            break;
+                        case 2000: row = ROW_2000;
+                            break;
+                        default: row = 40;    
+                    }
+                    if(sheet.getCell(col, row).getContents().isEmpty() && row != 40){
+                        label = r.getName();
+                        sheet.addCell(new Label(col, row, label, new WritableCellFormat(
+                        new WritableFont(WritableFont.TIMES,12))));
+                    }
+                    else if(row != 40){
+                        label = sheet.getCell(col, row).getContents() +
+                            ", " + r.getName();
+                        sheet.addCell(new Label(col,row, label, new WritableCellFormat(
+                            new WritableFont(WritableFont.TIMES,12))));
+                    }
+                }
+                scanner.close();
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+            
     }
 }
 
