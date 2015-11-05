@@ -46,10 +46,25 @@ public class ExcelOutputDriver {
             ExcelOutput courseSched =
                     new ExcelOutput(courses, "Course Number");
 
-            Record tutor1 = new Record(1, "Bryan", "1400-1600", 
-                "1800-2000", "1000-1200", "off","1000-1400","off", "off");
+            Record tutor1 = new Record(1, "Bryan", "-1", "1400,1500", 
+                "1800,1900", "1000,1100", "-1","1000, 1100,1200, 1300","-1");
+            Record tutor2 = new Record(1, "Garrett", "-1", "1400, 1500","-1",
+                "1100,1200", "-1", "800,900", "-1");
+            Record tutor3 = new Record(1, "Tyler", "1000,1100,1200", "1300,1400",
+                "1100,1200", "-1", "1000,1100,1400,1500", "-1", "900,1000"
+                        + "1100, 1200");
+            Record tutor4 = new Record(1, "Alex", "1000,1100", "-1",
+                "1100,1200", "-1", "800,900", "1100,1200", "-1");
+            
             
             tutorSched.addData(tutor1);
+            tutorSched.addData(tutor2);
+            tutorSched.addData(tutor3);
+            tutorSched.addData(tutor4);
+            masterSched.addToMaster(tutor1);
+            masterSched.addToMaster(tutor2);
+            masterSched.addToMaster(tutor3);
+            masterSched.addToMaster(tutor4);
             
             wbook.write();
             wbook.close();
@@ -61,3 +76,4 @@ public class ExcelOutputDriver {
     }  
 
 }
+
