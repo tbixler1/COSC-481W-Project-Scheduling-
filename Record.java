@@ -12,14 +12,16 @@ package exceloutput;
 public class Record {
     int recordNumber;
     String name;
+    String sunHrs;
     String monHrs;
     String tueHrs;
     String wedHrs;
     String thuHrs;
     String friHrs;
     String satHrs;
-    String sunHrs;
-    String defaultName = "DO NOT USE";
+    
+    String defaultName = "DEFAULT";
+    String defaultHours = "-1";
     boolean hasSunHrs;
     boolean hasMonHrs;
     boolean hasTueHrs;
@@ -28,18 +30,26 @@ public class Record {
     boolean hasFriHrs;
     boolean hasSatHrs;
     
+    final int SUN = 1;
+    final int MON = 2;
+    final int TUE = 3;
+    final int WED = 4;
+    final int THU = 5;
+    final int FRI = 6;
+    final int SAT = 7;
+    
     
     //default constructor
     public Record(){
         recordNumber = 50;
         name = defaultName;
-        hasSunHrs = false;
-        hasMonHrs = false;
-        hasTueHrs = false;
-        hasWedHrs = false;
-        hasThuHrs = false;
-        hasFriHrs = false;
-        hasSatHrs = false;
+        setSunHrs(defaultHours);
+        setMonHrs(defaultHours);
+        setTueHrs(defaultHours);
+        setWedHrs(defaultHours);
+        setThuHrs(defaultHours);
+        setFriHrs(defaultHours);
+        setSatHrs(defaultHours);
         
     }
     public Record(int rn, String n, String sunHrs, String monHrs, String tueHrs,
@@ -61,91 +71,131 @@ public class Record {
     private void setRecordNumber(int i){
         recordNumber = i;
     }
-    private void setName(String s){
+    public void setName(String s){
         name = s;
     }
+    
+    private void setHrs(int i){
+        //todo make individual set hours methods obsolete
+    }
     private void setSunHrs(String s){
+        if(!s.equalsIgnoreCase("-1")) {
+            hasSunHrs = true;
+        } else {
+            hasSunHrs = false;
+        }
         sunHrs = s;
-        hasSunHrs = true;
     }
     private void setMonHrs(String s){
+        if(!s.equalsIgnoreCase("-1")){
+            hasMonHrs = true;
+        } else {
+            hasMonHrs = false;
+        }
         monHrs = s;
-        hasMonHrs = true;
     }
     private void setTueHrs(String s){
-        if(hasTueHrs)
-            tueHrs = this.getTueHrs() + ", " + s;
-        else
-            tueHrs = s;
-        hasTueHrs = true;
+        if(!s.equals("-1")){
+            hasTueHrs = true;
+        } else {
+            hasTueHrs = false;
+        }
+        tueHrs = s;
     }
     private void setWedHrs(String s){
+        if(!s.equalsIgnoreCase("-1")){
+            hasWedHrs = true;
+        } else {
+            hasWedHrs = false;
+        }
         wedHrs = s;
-        hasWedHrs = true;
     }
     private void setThuHrs(String s){
+        if(!s.equalsIgnoreCase("-1")){
+            hasThuHrs = true;
+        } else {
+            hasThuHrs = false;
+        }
         thuHrs = s;
-        hasThuHrs = true;
     }
     private void setFriHrs(String s){
+        if(!s.equalsIgnoreCase("-1")){
+            hasFriHrs = true;
+        } else {
+            hasFriHrs = false;
+        }
         friHrs = s;
-        hasFriHrs = true;
     }
     private void setSatHrs(String s){
+        if(!s.equalsIgnoreCase("-1")){
+            hasSatHrs = true;
+        } else {
+            hasSatHrs = false;
+        }
         satHrs = s;
-        hasSatHrs = true;
     }
     
     
     // add to existing hours
+    public void addHrs(int i, String s){
+        if(hasHrs(i)){
+            switch(i){
+                case SUN: sunHrs = this.getHrs(SUN) + ", " + s;
+                case MON: monHrs = this.getHrs(MON) + ", " + s;
+                case TUE: tueHrs = this.getHrs(TUE) + ", " + s;
+                case WED: wedHrs = this.getHrs(WED) + ", " + s;
+                case THU: thuHrs = this.getHrs(THU) + ", " + s;
+                case FRI: friHrs = this.getHrs(FRI) + ", " + s;
+                case SAT: satHrs = this.getHrs(SAT) + ", " + s;
+            }
+        }
+        else{
+            switch(i){
+                //todo call new setHrs(int);
+            }
+        }
+    }
     public void addSunHrs(String s){
         if(hasSunHrs)
-            sunHrs = this.getSunHrs() + ", " + s;
+            sunHrs = this.getHrs(SUN) + ", " + s;
         else
-            sunHrs = s;
-        hasSunHrs = true;
+            setSunHrs(s);
     }
     public void addMonHrs(String s){
         if(hasMonHrs)
-            monHrs = this.getMonHrs() + ", " + s;
+            monHrs = this.getHrs(MON) + ", " + s;
         else
-            monHrs = s;
-        hasMonHrs = true;
+            setMonHrs(s);
     }
     public void addTueHrs(String s){
         if(hasTueHrs)
-            tueHrs = this.getTueHrs() + ", " + s;
+            tueHrs = this.getHrs(TUE) + ", " + s;
         else
-            tueHrs = s;
-        hasTueHrs = true;
+            setTueHrs(s);
     }
     public void addWedHrs(String s){
         if(hasWedHrs)
-            wedHrs = this.getWedHrs() + ", " + s;
+            wedHrs = this.getHrs(WED) + ", " + s;
         else
-            wedHrs = s;
-        hasWedHrs = true;
+            setWedHrs(s);
     }
     public void addThuHrs(String s){
         if(hasThuHrs)
-            thuHrs = this.getThuHrs() + ", " + s;
+            thuHrs = this.getHrs(THU) + ", " + s;
         else
-            thuHrs = s;
-        hasThuHrs = true;
+            setThuHrs(s);
     }
     public void addFriHrs(String s){
         if(hasFriHrs)
-            friHrs = this.getFriHrs() + ", " + s;
+            friHrs = this.getHrs(FRI) + ", " + s;
         else
-            friHrs = s;
-        hasFriHrs = true;
+            setFriHrs(s);
     }
     public void addSatHrs(String s){
         if(hasSatHrs)
-            satHrs = this.getSatHrs() + ", " + s;
+            satHrs = this.getHrs(SAT) + ", " + s;
         else
-            satHrs = s;
-        hasSatHrs = true;
+            setSatHrs(s);
     }
     
     
@@ -156,25 +206,29 @@ public class Record {
     public String getName(){
         return name;
     }
-    public String getMonHrs(){
-        return monHrs;
+    public String getHrs(int i){
+        switch(i){
+            case 1: return sunHrs;
+            case 2: return monHrs;
+            case 3: return tueHrs;
+            case 4: return wedHrs;
+            case 5: return thuHrs;
+            case 6: return friHrs;
+            case 7: return satHrs;
+            default: return "off";
+        }
     }
-    public String getTueHrs(){
-        return tueHrs;
+    public boolean hasHrs(int i){
+        switch(i){
+            case 1: return hasSunHrs;
+            case 2: return hasMonHrs;
+            case 3: return hasTueHrs;
+            case 4: return hasWedHrs;
+            case 5: return hasThuHrs;
+            case 6: return hasFriHrs;
+            case 7: return hasSatHrs;
+            default: return false;
+        }
     }
-    public String getWedHrs(){
-        return wedHrs;
-    }
-    public String getThuHrs(){
-        return thuHrs;
-    }
-    public String getFriHrs(){
-        return friHrs;
-    }
-    public String getSatHrs(){
-        return satHrs;
-    }
-    public String getSunHrs(){
-        return sunHrs;
-    }
+    
 }
