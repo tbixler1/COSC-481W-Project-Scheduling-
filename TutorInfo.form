@@ -159,9 +159,12 @@
                               <Component id="jSpinner6" min="-2" pref="51" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel34" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel22" alignment="1" min="-2" pref="144" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="jLabel34" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                                      <Component id="jLabel22" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -1162,6 +1165,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="contract hours"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="if(jComboBox1.getSelectedIndex() != 1)      jLabel36.setVisible(false);"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JSpinner" name="jSpinner6">
       <Properties>
@@ -1170,6 +1176,9 @@
         </Property>
         <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="if(jComboBox1.getSelectedIndex() != 1)&#xd;&#xa;    jSpinner6.setVisible(false);"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>

@@ -340,7 +340,8 @@ public class frontScreen extends javax.swing.JFrame {
             PleaseWait waitMessage = new PleaseWait();
             waitMessage.setVisible(true);
             
-            new Schedule(true, pathSch).setVisible(true);
+            openSchedule = new Schedule(true, pathSch);
+            openSchedule.setVisible(true);
             waitMessage.setVisible(false);
         }
     }//GEN-LAST:event_scheduleInProgressNewButtonActionPerformed
@@ -383,7 +384,8 @@ public class frontScreen extends javax.swing.JFrame {
                     PleaseWait waitMessage = new PleaseWait();
                     waitMessage.setVisible(true);
 
-                    new Schedule(false, pathSch).setVisible(true);
+                    openSchedule = new Schedule(false, pathSch);
+                    openSchedule.setVisible(true);
                     waitMessage.setVisible(false);
                 }
                 else
@@ -451,8 +453,8 @@ public class frontScreen extends javax.swing.JFrame {
             //tutorProfileListBox.setVisible(true);
         //}
         
-        
-            File[] tutorFiles = new File(pathTut).listFiles((File dir, String name1) -> name1.endsWith(".tut"));
+            // -> is called a lambda expression supported in java8
+            File[] tutorFiles = new File(pathTut).listFiles((File dir, String name) -> name.endsWith(".tut"));
             //System.out.println(tutorFiles.length);
             PleaseWait wait = new PleaseWait();
             wait.setVisible(true);
@@ -626,4 +628,5 @@ public class frontScreen extends javax.swing.JFrame {
     private TutorInfo newTutor;
     private seniorDatabase database;
     private Rules rules = new Rules();
+    private Schedule openSchedule;
 }
