@@ -289,7 +289,10 @@ public class TutorInfo extends javax.swing.JFrame {
         jSpinner5 = new javax.swing.JSpinner();
         jButton3 = new javax.swing.JButton();
         jLabel36 = new javax.swing.JLabel();
+        if(jComboBox1.getSelectedIndex() != 1)      jLabel36.setVisible(false);
         jSpinner6 = new javax.swing.JSpinner();
+        if(jComboBox1.getSelectedIndex() != 1)
+        jSpinner6.setVisible(false);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Student Availability");
@@ -888,9 +891,11 @@ public class TutorInfo extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jSpinner6, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel34, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel22, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel34)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addGap(26, 26, 26)
+                                        .addComponent(jLabel22)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jSpinner2, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
@@ -1722,6 +1727,33 @@ public class TutorInfo extends javax.swing.JFrame {
     public String toString()
     {
         return name;
+    }
+    
+    public Object[] getAllInfo()
+    {
+        Object[] retVal = new Object[3];
+        String[] strings = {name, EID, phone, email, emergencyContactName, emergencyContactPhone, emergencyContactRelation, major};
+        retVal[0] = strings;
+        
+        int[] ints = new int[175];
+        for(int i=0; i<7; i++)
+                for(int j=0; j<24; j++)
+                        ints[i*24+j] = availability[i][j];
+        ints[168] = position;
+        ints[169] = minHours;
+        ints[170] = maxHours;
+        ints[171] = workStudyHours;
+        ints[172] = coordinatorMin;
+        ints[173] = coordinatorMax;
+        ints[174] = contractHours;
+        retVal[1] = ints;
+        
+        boolean[] bools = new boolean[classes.length+1];
+        bools[0] = isLead;
+        for(int i=1; i<=classes.length; i++)
+                bools[i] = classes[i-1];
+        retVal[2] = bools;
+        return retVal;
     }
     
     //display panel

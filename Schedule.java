@@ -509,6 +509,11 @@ public class Schedule extends javax.swing.JFrame {
     private LabStats[][] labWindows = new LabStats[7][24];
     private String path;
     
+    public LabStats[][] getAvailability()
+    {
+        return labWindows;
+    }
+    
     //display panel
     //used to draw on the jPanel
     public class MyJPanel extends javax.swing.JPanel
