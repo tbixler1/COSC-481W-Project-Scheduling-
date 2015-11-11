@@ -496,7 +496,9 @@ public class frontScreen extends javax.swing.JFrame {
                 WritableSheet sheet = wBook.createSheet("tSHEET",0);
 //                for(int i=0; i<7; i++)
 //                    sheet.setColumnView(i, 30);
-                sheet.addCell(new Label(1,1,"test",new WritableCellFormat(new WritableFont(WritableFont.TIMES,12))));
+                sheet.addCell(new Label(1,1,"test\nhsdjbhsh\n",new WritableCellFormat(new WritableFont(WritableFont.TIMES,12))));
+                sheet.addCell(new Label(1,2,"test\nhsdjbhsh\n",new WritableCellFormat(new WritableFont(WritableFont.TIMES,12))));
+                
                 wBook.write();
                 wBook.close();
                 
