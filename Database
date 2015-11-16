@@ -8,28 +8,12 @@
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
+import java.util.ArrayList;
 public class seniorDatabase {
 	String curPath;
 	String dir;
 	private int stringLength, intLength, boolLength;
-	//Current needs
-		//What information is being sent
-			//Strings - readChar
-				//Name - 32 bytes
-				//EID - 32 bytes
-				//Phone # - 32 bytes
-				//Email - 128 bytes
-				//Emergency Contact - 32 bytes
-				//Emergency Contact # - 32 bytes
-				//Relation - 32 bytes
-			//Ints - readInt
-				//Major
-				//Position
-				//Work study hours/min hours/max hours
-				//Array of availability
-			//Boolean - readBoolean
-	
-	
+
 	//constructor
 	public seniorDatabase(String filePath){
 		dir = filePath;
@@ -41,18 +25,15 @@ public class seniorDatabase {
 	//Write
 	public void writeDatabase(String name, String stringData, int[] intData, boolean[] boolData){
 		curPath = dir + "\\" + name;
-		//stringLength = stringData.length;
 		intLength = intData.length;
 		boolLength = boolData.length;
+		
 		try{
 			RandomAccessFile writer = new RandomAccessFile(curPath, "rw");
-			int endRec = 0;
-			/*for(int i = 0;i < stringData.length;i++){ //writes a string array to file
-				writer.seek(writer.length()); //finds end of file first, then writes next string
-				writer.writeChars(stringData[i]);
-			}*/
+			//int endRec = 0;
+			
 			writer.seek(writer.length());
-			writer.writeUTF(stringData);
+			writer.writeUTF("0" + stringData);
 			
 			for(int j = 0; j < intData.length; j++){ //writes an int array to file
 				writer.seek(writer.length());
@@ -71,7 +52,6 @@ public class seniorDatabase {
 		catch(IOException x){
 			throw new RuntimeException(x);
 		}
-		System.out.println("wrote it");
 	}
 		//Requires
 			//Name of file
@@ -81,42 +61,42 @@ public class seniorDatabase {
 	//Read
 	public Object[] readDatabase(String name){ //probably can get rid of name later, not sure
 		curPath = dir + "\\" + name;
-		String stringData;
-		int[] intData = new int[intLength];
-		boolean[] boolData = new boolean[boolLength];
+		ArrayList<String> stringData = new ArrayList<String>();
+		ArrayList<Integer> intData = new ArrayList<Integer>();
+		ArrayList<Boolean> boolData = new ArrayList<Boolean>();
+		
 		try{
-			char[] hold = new char[200];
 			RandomAccessFile reader = new RandomAccessFile(curPath, "r");
 			reader.seek(0); //start at beginning of file
-			boolean run = true;
-			int spotCount = 0, count = 0, stringCount = 0;
 			
-			/*for(int k=0;k<80;k++){ //runs 80 times and finds all ascii characters, saves them in an array
-				if(reader.readChar() != 0x00){ //if it finds a ascii character move back 2 bytes then print
-					reader.seek(reader.getFilePointer()-2);
-					hold[spotCount] = reader.readChar();
-					spotCount++;
-					count++;
+			do{
+				String checkDel = reader.readUTF();
+				if(checkDel.charAt(0) == '0'){
+					stringData.add(checkDel);
+			
+					for(int k = 0;k < 5;k++){
+						intData.add(reader.readInt());
+					}
+
+					for(int x = 0; x < 5;x++){
+						boolData.add(reader.readBoolean());
+					}
 				}
-			}*/
-			//stringData = new String(hold); //converts char array to string
-			stringData = reader.readUTF();
-			
-			for(int i=0; i<intLength;i++){
-				intData[i] = reader.readInt();
-			}
-			//int intOffset = intLength * INTOFF + 89; //finds end of strings + end of ints before starting booleans
-			
-			//reader.seek(intOffset);
-			for(int j=0;j<boolLength;j++){
-				boolData[j] = reader.readBoolean();
-			}
+				else{
+					for(int k = 0;k<5;k++){
+						reader.readInt();
+					}
+					for(int x = 0; x<5; x++){
+						reader.readBoolean();
+					}
+				}
+			}while(reader.getFilePointer()<reader.length());
 			reader.close();
 		}
 		catch(IOException e){
 			throw new RuntimeException(e);
 		}
-		Object[] info = new Object[3]; //stores string, int array, and boolean array in object array
+		Object[] info = new Object[3]; //stores ArrayList<String>, int array, and boolean array in object array
 		info[0] = stringData;
 		info[1] = intData;
 		info[2] = boolData;
@@ -126,16 +106,81 @@ public class seniorDatabase {
 			//Name of file
 			//How to return
 	//Delete
-	public void deleteRecord(String name){
-		curPath = dir + "\\" + name;
+	public void deleteRecord(String fileName,String studentName){
+		curPath = dir + "\\" + fileName;
+		boolean deleted = false;
+		try{
+			RandomAccessFile reader = new RandomAccessFile(curPath,"rw");
+			while(!deleted){ //go until we have deleted something/end of file is reached
+				long beginning = reader.getFilePointer(); //used for going back to beginning of string
+				String compString = reader.readUTF(); //reads in string to compare name to
+				if(compString.contains(studentName)){ //if studentName is in that string that is the record we are looking for
+					String newRec = "1" + compString.substring(1, compString.length()); //new String where 1 is starting char(this indicates deleted record)
+					reader.seek(beginning); //goes back to beginning of string and rewrites it in its place
+					reader.writeUTF(newRec);
+					deleted = true; //sets deleted to true to break loop
+				}
+				else{
+					for(int i=0;i<5;i++){
+						reader.readInt(); //if we didn't find it then move through ints/bools to find next string NUMBERS NEED CHANGED HERE THESE ARE PLACEHOLDERS
+					}
+					for(int x=0;x<5;x++){
+						reader.readBoolean();
+					}
+				}
+				if(reader.getFilePointer()==reader.length()){ //if we get to end of file before finding record
+					deleted = true; //set deleted to true and output that tutor was not found
+					System.out.println("Tutor was not in database.");
+				}
+			}
+			reader.close();
+		}
+		catch(IOException e){
+			throw new RuntimeException(e);
+		}
 	}
-		//Requires
-			//Name of file
-		//Changes byte from 0 to 1 or vice versa, whatever client wants
+	public Object[] search(String fileName, String studentName){ //search function
+		curPath = dir + "\\" + fileName;
+		Object[] info = new Object[3]; //holds return information
+		Boolean found = false; //used to iterate through file
+		ArrayList<Integer> holdInt = new ArrayList<Integer>();
+		ArrayList<Boolean> holdBool = new ArrayList<Boolean>();
+		try{
+			RandomAccessFile searcher = new RandomAccessFile(curPath,"r");
+			while(searcher.getFilePointer()<searcher.length() && !found){
+				String compString = searcher.readUTF(); //holds string to compare to
+				if(compString.contains(studentName)&&compString.charAt(0)!='1'){
+					info[0] = compString; //if record is found then read information and store in Object[]
+					for(int i=0;i<5;i++){
+						holdInt.add(searcher.readInt()); //NUMBERS HERE NEED CHANGED THESE ARE PLACEHOLDERS
+					}
+					info[1] = holdInt;
+					for(int x=0;x<5;x++){
+						holdBool.add(searcher.readBoolean());
+					}
+					info[2] = holdBool;
+					found = true;
+				}
+				else{
+					for(int i =0;i<5;i++){
+						searcher.readInt();
+					}
+					for(int x=0;x<5;x++){
+						searcher.readBoolean();
+					}
+				}
+			}
+			searcher.close();
+		}
+		catch(IOException e){
+			throw new RuntimeException(e);
+		}
+		if(!found){ //if we didn't find the record then return Object[] with no information
+			info[0] = "No tutor";
+			info[1] = 0;
+			info[2] = false;
+			return info;
+		}
+		return info; //otherwise return the information we got
+	}
 }
-
-/*
- * To try:
- * Try finding file pointer after writing one string and saving that
- * Use difference in file pointers to find exact length needed
- */
