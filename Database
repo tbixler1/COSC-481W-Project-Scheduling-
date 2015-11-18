@@ -6,13 +6,10 @@
  * Writen by Tyler Bixler
  */
 import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.*;
 import java.util.ArrayList;
 public class seniorDatabase {
 	String curPath;
 	String dir;
-	private int stringLength, intLength, boolLength;
 
 	//constructor
 	public seniorDatabase(String filePath){
@@ -25,9 +22,6 @@ public class seniorDatabase {
 	//Write
 	public void writeDatabase(String name, String stringData, int[] intData, boolean[] boolData){
 		curPath = dir + "\\" + name;
-		intLength = intData.length;
-		boolLength = boolData.length;
-		
 		try{
 			RandomAccessFile writer = new RandomAccessFile(curPath, "rw");
 			//int endRec = 0;
@@ -182,5 +176,42 @@ public class seniorDatabase {
 			return info;
 		}
 		return info; //otherwise return the information we got
+	}
+	public void updateRecord(String fileName, String fullName, String newRec, int[] newHours, boolean[] newClasses){
+		curPath = dir + "\\" + fileName;
+		String searchName = fullName;
+		Boolean found = false;
+		try{
+			RandomAccessFile updater = new RandomAccessFile(curPath, "rw"); //creates RandomAccessFile object
+			while(updater.getFilePointer()<updater.length()&&!found){ //searches for record
+				long pointHold = updater.getFilePointer();
+				String recHold = updater.readUTF(); //reads in string to check for substring
+				if(recHold.contains(searchName)){ //if name is a substring of then continue with update
+					updater.seek(pointHold); //goes back to start of string
+					updater.writeUTF("0" + newRec); //writes string with 0 at beginning
+					for(int i=0;i<newHours.length;i++){ //writes new integers in place of others
+						updater.writeInt(newHours[i]);
+					}
+					for(int j=0;j<newClasses.length;j++){ //writes new booleans in place of others
+						updater.writeBoolean(newClasses[j]);
+					}
+				}
+				
+				for(int i=0;i<newHours.length;i++){ //if it didn't find string then next two loops run, and gets past ints/bools
+					updater.readInt();
+				}
+				for(int i=0;i<newClasses.length;i++){
+					updater.readBoolean();
+				}
+				found = true;
+				if(updater.getFilePointer()==updater.length()){
+					found = true;
+				}
+			}
+			updater.close();
+		}
+		catch(IOException e){
+			throw new RuntimeException(e);
+		}
 	}
 }
