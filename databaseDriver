@@ -1,30 +1,76 @@
+import java.util.ArrayList;
 
 public class debugger {
+	@SuppressWarnings("unchecked")
 	public static void main(String [] args){
-		String[] testString = {"Tyler Bixler", "E01065576", "7349723586", "tbixler1@emich.edu", "Margie Slatter", "4193555953", "Mother"};
-		String testString2 = "TylerBixlerE010655767349723586tbixler1@emich.eduMargieSlatter4193555953Mother";
+		String testString2 = "Tyler Bixler$&!E01065576$&!7349723586$&!tbixler1@emich.edu$&!Margie Slatter$&!4193555953$&!Mother$&!";
+		String testString3 = "John Smith$&!E03214598$&!7344841920$&!t.bixler@live.com$&!Jane Smith$&!4195478623$&!Side Chick$&!";
 		int[] testInt = {1, 2, 3, 4, 5};
 		boolean[] testBool = {true, true, false, false, true};
 		
 		seniorDatabase test = new seniorDatabase(System.getProperty("user.dir"));
 		test.writeDatabase("testFile", testString2, testInt, testBool);
-		Object[] testObj = test.readDatabase("testFile");
-		String hold = testObj.toString();
+		test.writeDatabase("testFile", testString3, testInt, testBool);
+		test.deleteRecord("testFile", "John Smith");
+		test.updateRecord("testFile", "Tyler Bixler", testString3, testInt, testBool);
+		Object[] testObj = test.search("testFile","John Smith");
+		/*ArrayList<String> stringData = new ArrayList<String>();
+		ArrayList<Integer> integerData = new ArrayList<Integer>();
+		ArrayList<Boolean> booleanData = new ArrayList<Boolean>();
+		stringData = (ArrayList<String>) testObj[0];
+		integerData = (ArrayList<Integer>) testObj[1];
+		booleanData = (ArrayList<Boolean>) testObj[2];
+		for(int i=0;i<stringData.size();i++){
+			int intSection = 0; //This needs to be incremented by number of ints to be read
+			int boolSection = 0; //This needs to be incremented by number of bools to be read
+			int intEndCk = 5; //This is added to intSection to know where to end current section
+			int boolEndCk = 5; //This is added to boolSection to know where to end current section
+			int prev = 0;
+			String testString1 = stringData.get(i);
+			for(int k=0;k<testString1.length();k++){
+				if(testString1.charAt(k)=='$' && testString1.charAt(k+1)=='&' && testString1.charAt(k+2)=='!'){
+					for(int x = prev; x<k;x++){
+						System.out.print(testString1.charAt(x));
+					}
+					System.out.println();
+					prev = k+3;
+				}
+			}
+			for(int j = 0 + intSection;j < (intEndCk + intSection); j++){
+				System.out.println(integerData.get(j));
+			}
+			for(int k = 0 + intSection;k < (boolEndCk + boolSection);k++){
+				System.out.println(booleanData.get(k));
+			}
+			intSection+=5;
+			boolSection+=5;
+		}*/
 		String testString1 = (String) testObj[0];
-		testInt = (int[]) testObj[1];
-		testBool = (boolean[]) testObj[2];
-		System.out.println(testString1);
-		for(int j=0;j<testInt.length;j++){
-			System.out.println(Integer.toString(testInt[j]));
+		Boolean stringTest = testString1.equals("No tutor");
+		if(!stringTest){
+			ArrayList<Integer> integerData = new ArrayList<Integer>();
+			ArrayList<Boolean> booleanData = new ArrayList<Boolean>();
+			integerData = (ArrayList<Integer>) testObj[1];
+			booleanData = (ArrayList<Boolean>) testObj[2];
+			int prev = 1;
+			for(int k=0;k<testString1.length();k++){
+				if(testString1.charAt(k)=='$' && testString1.charAt(k+1)=='&' && testString1.charAt(k+2)=='!'){
+					for(int x = prev; x<k;x++){
+						System.out.print(testString1.charAt(x));
+					}
+					System.out.println();
+					prev = k+3;
+				}
+			}
+			for(int i =0;i<5;i++){
+				System.out.println(integerData.get(i));
+			}
+			for(int i =0;i<5;i++){
+				System.out.println(booleanData.get(i));
+			}
 		}
-		for(int j=0;j<testBool.length;j++){
-			System.out.println(testBool[j]);
+		else{
+			System.out.println("Tutor isn't in database");
 		}
 	}
 }
-/*
- *for first split in string, check to see if n char is letter and n+1 char is digit
- *9 chars for EID, 10 chars for phone #
- *check for .edu/com for end of email, to find phone # check for digit
- *everything after that is relation 
- */
