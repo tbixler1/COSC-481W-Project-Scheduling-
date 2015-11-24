@@ -20,7 +20,7 @@ public class TutorInfo extends javax.swing.JFrame {
 
     private seniorDatabase database;
     Rules rules;
-
+    public boolean isNew;
     /**
      * Creates new form TutorInfo
      */
@@ -29,7 +29,7 @@ public class TutorInfo extends javax.swing.JFrame {
         rules = r;
         path = filePath;
         database = sd;
-        
+        isNew = true;
         String[] newClasses = r.getNewClassNames();
         
         switch(Integer.parseInt(newClasses[0]))
@@ -64,7 +64,7 @@ public class TutorInfo extends javax.swing.JFrame {
         rules = r;
         path = filePath;
         database = sd;
-        
+        isNew = false;
         String strings = (String) initArray[0];
         int[] ints = (int[]) initArray[1];
         boolean[] bools = (boolean[]) initArray[2];
@@ -73,14 +73,14 @@ public class TutorInfo extends javax.swing.JFrame {
         for(String s : strings.split(Pattern.quote("$&!")))
             stringList.add(s);
         
-        name = stringList.remove(0);
-        EID = stringList.remove(0);
-        phone = stringList.remove(0);
-        email = stringList.remove(0);
-        emergencyContactName = stringList.remove(0);
-        emergencyContactPhone = stringList.remove(0);
-        emergencyContactRelation = stringList.remove(0);
-        major = stringList.remove(0);
+        name = stringList.remove(0).substring(1).trim();
+        EID = stringList.remove(0).trim();
+        phone = stringList.remove(0).trim();
+        email = stringList.remove(0).trim();
+        emergencyContactName = stringList.remove(0).trim();
+        emergencyContactPhone = stringList.remove(0).trim();
+        emergencyContactRelation = stringList.remove(0).trim();
+        major = stringList.remove(0).trim();
         
         jTextField1.setText(name);
         jTextField2.setText(EID);
@@ -1388,8 +1388,14 @@ public class TutorInfo extends javax.swing.JFrame {
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         // TODO add your handling code here:
         //when the window closes, record all information not yet recorded into variables
+        String oldName = name;
         name = this.jTextField1.getText();
+        for(int i=name.length(); i<100; i++)
+            name += " ";
+ 
         EID = jTextField2.getText();
+        for(int i=EID.length(); i<30; i++)
+            EID += " ";
         position = jComboBox1.getSelectedIndex();
         workStudyHours = (Integer)jSpinner3.getValue();
         minHours = (Integer)jSpinner1.getValue();
@@ -1398,11 +1404,23 @@ public class TutorInfo extends javax.swing.JFrame {
         coordinatorMax = (Integer)jSpinner5.getValue();
         contractHours = (Integer)jSpinner6.getValue();
         phone = jTextField3.getText();
+        for(int i=phone.length(); i<30; i++)
+            phone += " ";
         email = jTextField4.getText();
+        for(int i=email.length(); i<100; i++)
+            email += " ";
         emergencyContactName = jTextField5.getText();
+        for(int i=emergencyContactName.length(); i<100; i++)
+            emergencyContactName += " ";
         emergencyContactPhone = jTextField6.getText();
+        for(int i=emergencyContactPhone.length(); i<30; i++)
+            emergencyContactPhone += " ";
         emergencyContactRelation = jTextField7.getText();
+        for(int i=emergencyContactRelation.length(); i<100; i++)
+            emergencyContactRelation += " ";
         major = jTextField8.getText();
+        for(int i=major.length(); i<100; i++)
+            major += " ";
                 
         String key = "$&!";
         String strings = name+key+EID+key+phone+key+email+key+emergencyContactName+key+emergencyContactPhone+key+emergencyContactRelation+key+major;
@@ -1425,7 +1443,13 @@ public class TutorInfo extends javax.swing.JFrame {
         for(int i=1; i<=classes.length; i++)
             bools[i] = classes[i-1];
         
-        database.writeDatabase(name, strings, ints, bools);
+        if(isNew)
+        {
+            database.writeDatabase(path, strings, ints, bools);
+            isNew = false;
+        }
+        else
+            database.updateRecord(path, oldName, strings, ints, bools);
         
     }//GEN-LAST:event_formWindowClosed
 
@@ -1726,13 +1750,13 @@ public class TutorInfo extends javax.swing.JFrame {
     //the object's name is the student's name for the dropdown box on the frontScreen
     public String toString()
     {
-        return name;
+        return name.trim();
     }
     
     public Object[] getAllInfo()
     {
         Object[] retVal = new Object[3];
-        String[] strings = {name, EID, phone, email, emergencyContactName, emergencyContactPhone, emergencyContactRelation, major};
+        String[] strings = {name.trim(), EID.trim(), phone.trim(), email.trim(), emergencyContactName.trim(), emergencyContactPhone.trim(), emergencyContactRelation.trim(), major.trim()};
         retVal[0] = strings;
         
         int[] ints = new int[175];

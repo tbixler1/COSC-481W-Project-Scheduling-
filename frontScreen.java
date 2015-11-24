@@ -63,6 +63,8 @@ public class frontScreen extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Main Menu");
@@ -139,7 +141,7 @@ public class frontScreen extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Student Profiles");
+        jLabel1.setText("2. Student Profiles");
 
         jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
@@ -158,7 +160,7 @@ public class frontScreen extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Lab Info");
+        jLabel3.setText("3. Lab Schedule");
 
         jButton3.setText("?");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -188,6 +190,14 @@ public class frontScreen extends javax.swing.JFrame {
             }
         });
 
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("4. Work Schedule");
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("1. Rules and Customization");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -199,15 +209,15 @@ public class frontScreen extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(rulesModifyButton)
-                                .addGap(18, 20, Short.MAX_VALUE))
+                                .addGap(18, 22, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton5)
-                                .addGap(18, 18, 18)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                            .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(tutorProfileListBox, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -219,76 +229,80 @@ public class frontScreen extends javax.swing.JFrame {
                                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton3)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(finishedScheduleBuildButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(scheduleInProgressOpenButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(scheduleInProgressNewButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jLabel2)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(finishedScheduleBuildButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(scheduleInProgressOpenButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(scheduleInProgressNewButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addComponent(jButton6, javax.swing.GroupLayout.Alignment.TRAILING))
-                            .addComponent(jLabel2))
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel3)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton4)
-                        .addContainerGap(24, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton4))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton6)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jSeparator1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel1)
                                     .addComponent(jButton3))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(tutorProfileListNewButton)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(0, 4, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addContainerGap()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel3)
                                     .addComponent(jButton4))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                                .addComponent(jLabel2)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(tutorProfileListOpenButton)
                                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                                 .addComponent(tutorProfileListBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(scheduleInProgressNewButton)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(scheduleInProgressOpenButton))))
-                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jSeparator2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator3)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton6)
+                            .addComponent(jLabel4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                         .addComponent(finishedScheduleBuildButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton2))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton5)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton5)
+                            .addComponent(jLabel5))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(rulesModifyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -348,6 +362,15 @@ public class frontScreen extends javax.swing.JFrame {
 
     private void finishedScheduleBuildButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_finishedScheduleBuildButtonActionPerformed
         // TODO add your handling code here:
+        if(tutorList.size()>0)
+        {
+            if(jLabel2.getText()!="No .sch Currently Open")
+                new Heuristic(tutorList, openSchedule, rules);
+            else
+                showMessageDialog(null, "ERROR: A lab schedule must be opened before a work schedule can be created\nPlease create or open a lab schedule");
+        }
+        else
+            showMessageDialog(null, "ERROR: A tutor list must be opened before a work schedule can be created\nPlease create or open a tutor list");
     }//GEN-LAST:event_finishedScheduleBuildButtonActionPerformed
 
     private void rulesModifyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rulesModifyButtonActionPerformed
@@ -401,11 +424,8 @@ public class frontScreen extends javax.swing.JFrame {
         if(choice == JFileChooser.APPROVE_OPTION)
         {
             Scanner stdin = new Scanner(System.in);
-            pathTut=fc.getSelectedFile().getAbsolutePath();
-            int index = pathTut.lastIndexOf('\\');
-            pathTut = pathTut.substring(0, index);
-            //System.out.println(pathTut);
-            
+            pathTut=fc.getSelectedFile().getAbsolutePath()+".tut";
+           
             database = new seniorDatabase(pathTut);
             tutorList.clear();
             while(tutorProfileListBox.getItemCount() > 1)
@@ -434,57 +454,72 @@ public class frontScreen extends javax.swing.JFrame {
 
     private void tutorProfileListOpenButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tutorProfileListOpenButtonActionPerformed
         // TODO add your handling code here:
-        JFileChooser fc = new JFileChooser();
-        int choice = fc.showOpenDialog(null);
-        if(choice == JFileChooser.APPROVE_OPTION)
+        do
         {
-            //System.out.println("rdtfhvghbjn");
-            pathTut=fc.getSelectedFile().getAbsolutePath();
-            int index = pathTut.lastIndexOf('\\');
-            pathTut = pathTut.substring(0, index);
-            //System.out.println(pathTut);
-            
-            database = new seniorDatabase(pathTut);
-            
-            tutorList.clear();
-            while(tutorProfileListBox.getItemCount() > 1)
-                tutorProfileListBox.removeItemAt(1);
-            
-            //tutorProfileListBox.setVisible(true);
-        //}
-        
-            // -> is called a lambda expression supported in java8
-            File[] tutorFiles = new File(pathTut).listFiles((File dir, String name) -> name.endsWith(".tut"));
-            //System.out.println(tutorFiles.length);
-            PleaseWait wait = new PleaseWait();
-            wait.setVisible(true);
-            for(int i=0; i<tutorFiles.length; i++)
+            JFileChooser fc = new JFileChooser();
+            int choice = fc.showOpenDialog(null);
+            if(choice == JFileChooser.APPROVE_OPTION)
             {
-                System.out.println(tutorFiles[i].getName());
-                Object[] objArray = database.readDatabase(tutorFiles[i].getName());
-                newTutor = new TutorInfo(database, pathTut, objArray, rules);
-                tutorList.add(newTutor);
-                //add the last tutor to the drop down list
-                tutorProfileListBox.addItem(newTutor);
+                //System.out.println("rdtfhvghbjn");
+                pathTut=fc.getSelectedFile().getAbsolutePath();
+                if(pathTut.endsWith(".tut"))
+                {
+                    //System.out.println(pathTut);
 
+                    database = new seniorDatabase(pathTut);
+
+                    tutorList.clear();
+                    while(tutorProfileListBox.getItemCount() > 1)
+                        tutorProfileListBox.removeItemAt(1);
+
+                    //tutorProfileListBox.setVisible(true);
+                //}
+
+                    // -> is called a lambda expression supported in java8
+                    //File[] tutorFiles = new File(pathTut).listFiles((File dir, String name) -> name.endsWith(".tut"));
+                    //System.out.println(tutorFiles.length);
+                    PleaseWait wait = new PleaseWait();
+                    wait.setVisible(true);
+                    Object[] objArray = database.readDatabase(pathTut);
+                    for(int i=0; i< ((ArrayList<String>)objArray[0]).size(); i++)
+                    {
+                        //System.out.println(tutorFiles[i].getName());
+                        Object[] smallArr = new Object[3];
+                        smallArr[0] = ((ArrayList<String>)objArray[0]).get(i);
+                        int[] ints = new int[175];
+                        for(int j=i*175; j<i*175+ints.length; j++)
+                            ints[j%175] = ((ArrayList<Integer>)objArray[1]).get(j);
+                        smallArr[1] = ints;
+                        boolean[] bools = new boolean[30];
+                        for(int j=i*30; j<i*30+bools.length; j++)
+                            bools[j%30] = ((ArrayList<Boolean>)objArray[2]).get(j);
+                        smallArr[2] = bools;
+
+                        newTutor = new TutorInfo(database, pathTut, smallArr, rules);
+                        tutorList.add(newTutor);
+                        //add the last tutor to the drop down list
+                        tutorProfileListBox.addItem(newTutor);
+
+                    }
+
+            //        //create new tutor and display their editting window
+            //        newTutor = new TutorInfo(database, pathTut);
+            //        newTutor.setVisible(true);
+            //        //save tutor to global variable
+            //        tutorList.add(newTutor);
+                    wait.setVisible(false);
+                    tutorProfileListBox.setVisible(true);
+                }
+                else
+                    showMessageDialog(null, "ERROR: Chosen file must have extention:  .tut\nPlease try again");
             }
-
-    //        //create new tutor and display their editting window
-    //        newTutor = new TutorInfo(database, pathTut);
-    //        newTutor.setVisible(true);
-    //        //save tutor to global variable
-    //        tutorList.add(newTutor);
-            wait.setVisible(false);
-
-
-            tutorProfileListBox.setVisible(true);
-        }
+        }while(!pathTut.endsWith(".tut"));
     }//GEN-LAST:event_tutorProfileListOpenButtonActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         //TODO add your handling code here:
         //Open Excel file
-        JFileChooser fc = new JFileChooser();
+/*      JFileChooser fc = new JFileChooser();
         int choice = fc.showOpenDialog(null);
         if(choice == JFileChooser.APPROVE_OPTION)
         {
@@ -516,6 +551,16 @@ public class frontScreen extends javax.swing.JFrame {
                 Desktop.getDesktop().open(new File(path));
             } catch (IOException ex) {
                 //Logger.getLogger(frontScreen.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }*/
+        JFileChooser fc = new JFileChooser();
+        int choice = fc.showOpenDialog(null);
+        if(choice == JFileChooser.APPROVE_OPTION)
+        {
+            String path = fc.getSelectedFile().getAbsolutePath();
+            try {
+                Desktop.getDesktop().open(new File(path));
+            } catch (Exception ex) {
             }
         }
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -613,6 +658,8 @@ public class frontScreen extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
